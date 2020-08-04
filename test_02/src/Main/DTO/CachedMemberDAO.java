@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MemberDAO {
+public class CachedMemberDAO {
 	private static long nextId = 0;
 	private static Map<String, MemberDTO> map = new HashMap<String, MemberDTO>();
 
@@ -19,7 +19,6 @@ public class MemberDAO {
 
 	public Collection<MemberDTO> selectAll() {
 		// TODO Auto-generated method stub
-		
 		return map.values();
 	}
 

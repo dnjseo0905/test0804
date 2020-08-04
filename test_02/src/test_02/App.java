@@ -3,6 +3,8 @@ package test_02;
 import java.util.Scanner;
 
 import Main.DTO.RegisterRequest;
+import Main.service.ChangePasswordService;
+import Main.service.MemberInfoPrinter;
 import Main.service.MemberListPrinter;
 import Main.service.MemberRegisterService;
 
@@ -30,18 +32,37 @@ public class App {
 					System.out.println("비밀번호가 일치하지 않습니다.");
 					continue;
 				}
-				//dependency object가된다.
+				// dependency object가된다.
 				MemberRegisterService mrs = new MemberRegisterService();
 				mrs.regist(req);
-			} else if (command.startsWith("change ")) {
-			} else if (command.startsWith("list ")) {
-				//dependency object가된다.
+			} else if (command.startsWith("change")) {
+				String[]arg =command.split(" ");
+				if(arg.length !=4) {
+					printHelp();
+					System.out.println();
+					continue;
+				}
+				ChangePasswordService changePwdSvc = new ChangePasswordService();
+				changePwdSvc.changePassword(arg[1],arg[2],arg[3]);
+				System.out.println("비밀번호가 변경되었습니다.");
+			} else if (command.startsWith("list")) {
+				// dependency object가된다.
 				MemberListPrinter listPrint = new MemberListPrinter();
 				listPrint.printAll();
-			} else if (command.startsWith("info ")) {
+			} else if (command.startsWith("info")) {
+				String[] arg = command.split(" ");
+				if (arg.length != 2) {
+					printHelp();
+					continue;
+				}
+				MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
+				infoPrinter.printMemberInfo(arg[1]);
 			} else if (command.startsWith("exit")) {
+				System.out.println("프로그램이 종료 되었습니다.");
 				System.exit(0);
-
+				
+			} else {
+				printHelp();
 			}
 		}
 
